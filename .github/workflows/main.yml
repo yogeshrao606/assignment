@@ -26,11 +26,10 @@ jobs:
           echo "No tests configured yet"
 
       - name: Docker Login
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build & Push Docker Image
         run: |
           docker build -t flask-cicd-demo .
           docker tag flask-cicd-demo ${{ secrets.DOCKER_USERNAME }}/flask-cicd-demo:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/flask-cicd-demo:latest
-          
